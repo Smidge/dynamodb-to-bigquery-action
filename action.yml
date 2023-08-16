@@ -1,11 +1,35 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'dynamodb-bigquery-sync'
+description: 'Exports your DynamoDB table to BigQuery'
+author: 'Harry Smaje'
 inputs:
-  milliseconds: # change this
+  aws-access-key-id:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'AWS access key ID'
+  aws-secret-access-key:
+    required: true
+    description: 'AWS secret access key'
+  aws-region:
+    required: true
+    description: 'AWS region'
+    default: 'us-east-1'
+  dynamodb-table-name:
+    required: true
+    description: 'DynamoDB table name'
+  gcp-client-email:
+    required: true
+    description: 'GCP client email'
+  gcp-private-key:
+    required: true
+    description: 'GCP private key'
+  bigquery-project-id:
+    required: true
+    description: 'BigQuery project ID'
+  bigquery-dataset-id:
+    required: true
+    description: 'BigQuery dataset ID'
+  bigquery-table-id:
+    required: true
+    description: 'BigQuery table ID'
 runs:
-  using: 'node16'
+  using: 'node18'
   main: 'dist/index.js'

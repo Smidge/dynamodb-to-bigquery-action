@@ -1,19 +1,25 @@
-import * as core from '@actions/core'
-import {wait} from './wait'
+import * as core from "@actions/core";
+import { getItemsPaginated } from "./DynamoDB/getItemsPaginated";
+import { writeItems } from "./BigQuery/writeItems";
 
 async function run(): Promise<void> {
+  let lastEvaluatedKey;
+
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    do {
+      const result = await getItemsPaginated(lastEvaluatedKey);
+      const items = result.Items;
+      lastEvaluatedKey = result.LastEvaluatedKey;
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+      if (!items) {
+        return;
+      }
 
-    core.setOutput('time', new Date().toTimeString())
+      await writeItems(items);
+    } while (lastEvaluatedKey);
   } catch (error) {
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) core.setFailed(error.message);
   }
 }
 
-run()
+run();
