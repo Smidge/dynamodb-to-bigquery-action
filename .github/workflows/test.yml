@@ -24,9 +24,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+          dynamodb-table-name: ${{ secrets.DYNAMODB_TABLE_NAME }}
           gcp-client-email: ${{ secrets.GCP_CLIENT_EMAIL }}
           gcp-private-key: ${{ secrets.GCP_PRIVATE_KEY }}
-          dynamodb-table-name: ${{ secrets.DYNAMODB_TABLE_NAME }}
           bigquery-project-id: ${{ secrets.BIGQUERY_PROJECT_ID }}
           bigquery-dataset-id: ${{ secrets.BIGQUERY_DATASET_ID }}
           bigquery-table-id: ${{ secrets.BIGQUERY_TABLE_ID }}
